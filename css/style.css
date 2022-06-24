@@ -234,7 +234,8 @@ header ul li ul li a {
     padding: 22px;
 }
 
-.footer h4, .footer h3 {
+.footer h4,
+.footer h3 {
     color: white;
 }
 
@@ -310,4 +311,29 @@ header ul li ul li a {
     /* bottom: 0px; */
     left: 0px;
     padding-top: 20px;
+}
+
+/*
+    SINGLE POST
+*/
+.single-post {
+    margin-bottom: 30px;
+}
+
+.single-post .info {
+    margin: 20px 0;
+}
+
+.single-post .info i {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.single-post a {
+    text-decoration: underline;
+}
+
+.single-post a:hover {
+    text-decoration: none;
+    color: #008489;
 }
