@@ -6,7 +6,7 @@ $db_name = 'dynamic_site';
 $db_user = 'root';
 $db_password = 'root';
 $charset = 'utf8';
-$options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
+$options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC];
 
 try {
     $pdo = new PDO(
