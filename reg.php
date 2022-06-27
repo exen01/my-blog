@@ -1,4 +1,8 @@
-<?php include("path.php"); ?>
+<?php
+include "path.php";
+include "app/controllers/user-controller.php";
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -28,31 +32,35 @@
 
     <!-- FORM start -->
     <div class="container reg-form">
-        <form class="row justify-content-center" method="post" action="reg.html">
+        <form class="row justify-content-center" method="post" action="reg.php">
             <h2>Регистрация</h2>
+            <div class="mb-3 col-12 col-md-4 error">
+                <p><?=$statusMessage ?></p>
+            </div>
+            <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
                 <label for="formGroupExampleInput" class="form-label">Логин</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="введите ваш логин...">
+                <input type="text" value="<?=$login ?>" class="form-control" id="formGroupExampleInput" placeholder="введите ваш логин..." name="login">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
                 <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email...">
+                <input type="email" value="<?=$email ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email..." name="email">
                 <div id="emailHelp" class="form-text">Ваш email адрес не будет использован для спама!</div>
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль...">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль..." name="passwordFirst">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
                 <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
-                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль...">
+                <input type="password" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль..." name="passwordSecond">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
-                <button type="submit" class="btn btn-secondary">Регистрация</button>
+                <button type="submit" class="btn btn-secondary" name="button-reg">Регистрация</button>
                 <a href="auth.html">Войти</a>
             </div>
         </form>

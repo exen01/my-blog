@@ -3,13 +3,6 @@
 
 require("connect.php");
 
-function prettyPrint($value)
-{
-    echo '<pre>';
-    print_r($value);
-    echo '<pre>';
-}
-
 // database query execution check
 function dbCheckError($query)
 {
@@ -80,6 +73,8 @@ function insert(string $table, $params)
     $query = $pdo->prepare($sql);
     $query->execute();
     dbCheckError($query);
+
+    return $pdo->lastInsertId();
 }
 
 // update data in table by id

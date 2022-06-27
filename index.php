@@ -35,7 +35,7 @@
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="images/image_1.jpg" class="d-block w-100" alt="...">
+                    <img src="assets/images/image_1.jpg" class="d-block w-100" alt="...">
                     <div class="carousel-caption-hack carousel-caption d-none d-md-block">
                         <h5><a href="#">First slide label</a></h5>
                     </div>
