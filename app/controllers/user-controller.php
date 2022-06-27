@@ -10,7 +10,21 @@ $statusMessage = "";
 //     echo '<pre>';
 // }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+function userAuth($userData)
+{
+    $_SESSION['id'] = $userData['id'];
+    $_SESSION['login'] = $userData['username'];
+    $_SESSION['isAdmin'] = $userData['is_admin'];
+
+    if ($_SESSION['isAdmin']) {
+        header('location: ' . BASE_URL . "admin/admin.php");
+    } else {
+        header('location: ' . BASE_URL);
+    }
+}
+
+// registration
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])) {
     $isAdmin = 0;
     $login = trim($_POST['login']);
     $email = trim($_POST['email']);
@@ -24,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($passwordF !== $passwordS) {
         $statusMessage = "Проверьте подтверждение пароля.";
     } else {
-        $emailFromDb = select('users', ['email' => $email], true);
-        if (!empty($emailFromDb['email']) && $emailFromDb['email'] === $email) {
+        $userDataFromDb = select('users', ['email' => $email], true);
+        if (!empty($userDataFromDb['email']) && $userDataFromDb['email'] === $email) {
             $statusMessage = "Пользователь с данным адресом элекронной почты уже зарегестрирован.";
         } else {
             $pass = password_hash($passwordF, PASSWORD_DEFAULT);
@@ -35,11 +49,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'email' => $email,
                 'password' => $pass
             ];
-            $id = insert('users', $post);
-            $statusMessage = "Пользователь $login успешно зарегестрирован.";
+            userAuth($userDataFromDb);
         }
     }
 } else {
     $login = '';
+    $email = '';
+}
+
+//authorization
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    if ($email === "" || $password === "") {
+        $statusMessage = "Не все поля заполнены.";
+    } else {
+        $userDataFromDb = select('users', ['email' => $email], true);
+        if ($userDataFromDb && password_verify($password, $userDataFromDb['password'])) {
+            userAuth($userDataFromDb);
+        } else {
+            $statusMessage = "Неверная почта или пароль.";
+        }
+    }
+} else {
     $email = '';
 }

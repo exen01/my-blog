@@ -12,14 +12,23 @@
                     <li><a href="<?php echo BASE_URL . 'about.php' ?>">О нас</a></li>
                     <li><a href="#">Услуги</a></li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-user"></i>
-                            Кабинет
-                        </a>
-                        <ul>
-                            <li><a href="#">Админ панель</a></li>
-                            <li><a href="#">Выход</a></li>
-                        </ul>
+                        <?php if (isset($_SESSION['id'])) : ?>
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <?php echo $_SESSION['login']; ?>
+                            </a>
+                            <ul>
+                                <?php if ($_SESSION['isAdmin']) : ?>
+                                    <li><a href="<?php echo BASE_URL . 'admin/admin.php' ?>">Админ панель</a></li>
+                                <?php endif; ?>
+                                <li><a href="<?php echo BASE_URL . 'logout.php' ?>">Выход</a></li>
+                            </ul>
+                        <?php else : ?>
+                            <a href="<?php echo BASE_URL . 'auth.php' ?>">
+                                <i class="fa fa-user"></i>
+                                Войти
+                            </a>
+                        <?php endif; ?>
                     </li>
                 </ul>
             </nav>

@@ -1,6 +1,7 @@
 <?php
 // functions for database
 
+session_start();
 require("connect.php");
 
 // database query execution check

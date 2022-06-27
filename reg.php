@@ -61,7 +61,7 @@ include "app/controllers/user-controller.php";
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
                 <button type="submit" class="btn btn-secondary" name="button-reg">Регистрация</button>
-                <a href="auth.html">Войти</a>
+                <a href="<?php echo BASE_URL . 'auth.php' ?>">Войти</a>
             </div>
         </form>
     </div>

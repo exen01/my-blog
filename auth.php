@@ -1,4 +1,7 @@
-<?php include("path.php"); ?>
+<?php
+include "path.php";
+include "app/controllers/user-controller.php"
+?>
 
 <!doctype html>
 <html lang="en">
@@ -28,21 +31,25 @@
 
     <!-- FORM start -->
     <div class="container reg-form">
-        <form class="row justify-content-center" method="post" action="auth.html">
+        <form class="row justify-content-center" method="post" action="auth.php">
             <h2 class="col-12">Авторизация</h2>
+            <div class="mb-3 col-12 col-md-4 error">
+                <p><?= $statusMessage ?></p>
+            </div>
+            <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
-                <label for="formGroupExampleInput" class="form-label">Логин</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="введите ваш логин...">
+                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <input type="email" name="email" value="<?= $email ?>" class="form-control" id="exampleInputEmail1" placeholder="введите ваш email...">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль...">
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль...">
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">
-                <button type="submit" class="btn btn-secondary">Войти</button>
-                <a href="auth.html">Регистрация</a>
+                <button type="submit" name="button-auth" class="btn btn-secondary">Войти</button>
+                <a href="<?php echo BASE_URL . 'reg.php' ?>">Регистрация</a>
             </div>
         </form>
     </div>
