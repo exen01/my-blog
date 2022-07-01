@@ -17,7 +17,7 @@ function userAuth($userData)
     $_SESSION['isAdmin'] = $userData['is_admin'];
 
     if ($_SESSION['isAdmin']) {
-        header('location: ' . BASE_URL . "admin/admin.php");
+        header('location: ' . BASE_URL . "admin/posts/index.php");
     } else {
         header('location: ' . BASE_URL);
     }
