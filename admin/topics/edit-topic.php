@@ -35,7 +35,7 @@ include "../../app/controllers/topic-controller.php";
         <div class="row">
             <?php include "../../app/include/admin-sidebar.php"; ?>
             <div class="posts col-9">
-            <div class="button row">
+                <div class="button row">
                     <a href="<?php echo BASE_URL . "admin/topics/create-topic.php"; ?>" class="col-2 btn btn-success">
                         Создать
                     </a>
@@ -45,29 +45,27 @@ include "../../app/controllers/topic-controller.php";
                     </a>
                 </div>
                 <div class="row title-table">
-                    <h2>Управление категориями</h2>
-                    <div class="id col-1">ID</div>
-                    <div class="title col-5">Название</div>
-                    <div class="edit col-4">Управление</div>
+                    <h2>Обновление категории</h2>
                 </div>
-                <?php foreach($topics as $key => $topic): ?>
-                <div class="row post">
-                    <div class="col-1 id"><?= $topic['id']; ?></div>
-                    <div class="col-5"><?= $topic['name']; ?></div>
-                    <div class="col-2 edit">
-                        <a href="edit-topic.php?id=<?= $topic['id']; ?>">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            Edit
-                        </a>
+                <div class="row add-post">
+                    <div class="mb-12 col-12 col-md-12 error">
+                        <p><?= $statusMessage ?></p>
                     </div>
-                    <div class="col-2 delete">
-                        <a href="edit-topic.php?delete_id=<?= $topic['id']; ?>">
-                            <i class="fa-solid fa-trash-can"></i>
-                            Delete
-                        </a>
-                    </div>
+                    <form action="edit-topic.php" method="post">
+                        <input name="id" type="hidden" value="<?= $id; ?>">
+                        <div class="col">
+                            <label for="title" class="form-label">Название категории</label>
+                            <input name="name" type="text" value="<?= $name ?>" class="form-control" placeholder="Название..." id="title">
+                        </div>
+                        <div class="col">
+                            <label for="content" class="form-label">Описание категории</label>
+                            <textarea name="description" class="form-control" id="content" rows="6"><?= $description ?></textarea>
+                        </div>
+                        <div class="col">
+                            <button name="topic-update" class="btn btn-primary" type="submit">Обновить категорию</button>
+                        </div>
+                    </form>
                 </div>
-                <?php endforeach; ?>
             </div>
         </div>
     </div>

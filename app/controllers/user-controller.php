@@ -1,14 +1,7 @@
 <?php
-include "app/database/db.php";
+include SITE_ROOT . "/app/database/db.php";
 
 $statusMessage = "";
-
-// function prettyPrint($value)
-// {
-//     echo '<pre>';
-//     print_r($value);
-//     echo '<pre>';
-// }
 
 function userAuth($userData)
 {
@@ -43,13 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])) {
             $statusMessage = "Пользователь с данным адресом элекронной почты уже зарегестрирован.";
         } else {
             $pass = password_hash($passwordF, PASSWORD_DEFAULT);
-            $post = [
+            $user = [
                 'is_admin' => $isAdmin,
                 'username' => $login,
                 'email' => $email,
                 'password' => $pass
             ];
-            userAuth($userDataFromDb);
+            $id = insert('users', $user);
+            userAuth($user);
         }
     }
 } else {

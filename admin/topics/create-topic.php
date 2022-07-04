@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../../path.php";
+include "../../app/controllers/topic-controller.php";
 ?>
 
 <!doctype html>
@@ -34,7 +35,7 @@ include "../../path.php";
         <div class="row">
             <?php include "../../app/include/admin-sidebar.php"; ?>
             <div class="posts col-9">
-            <div class="button row">
+                <div class="button row">
                     <a href="<?php echo BASE_URL . "admin/topics/create-topic.php"; ?>" class="col-2 btn btn-success">
                         Создать
                     </a>
@@ -47,17 +48,20 @@ include "../../path.php";
                     <h2>Добавление категории</h2>
                 </div>
                 <div class="row add-post">
-                    <form action="create-post.php" method="post">
+                    <div class="mb-12 col-12 col-md-12 error">
+                        <p><?= $statusMessage ?></p>
+                    </div>
+                    <form action="create-topic.php" method="post">
                         <div class="col">
                             <label for="title" class="form-label">Название категории</label>
-                            <input type="text" class="form-control" placeholder="Название..." id="title">
+                            <input name="name" type="text" value="<?= $name ?>" class="form-control" placeholder="Название..." id="title">
                         </div>
                         <div class="col">
                             <label for="content" class="form-label">Описание категории</label>
-                            <textarea class="form-control" id="content" rows="6"></textarea>
+                            <textarea name="description" class="form-control" id="content" rows="6"><?= $description ?></textarea>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary" type="submit">Сохранить категорию</button>
+                            <button name="topic-create" class="btn btn-primary" type="submit">Сохранить категорию</button>
                         </div>
                     </form>
                 </div>

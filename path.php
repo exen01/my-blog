@@ -1,3 +1,4 @@
 <?php
 
-define('BASE_URL', 'http://dynamic-site/');
+const BASE_URL = 'http://dynamic-site/';
+const SITE_ROOT = __DIR__;
