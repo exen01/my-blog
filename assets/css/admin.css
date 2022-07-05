@@ -268,3 +268,17 @@ header ul li ul li a {
 .add-post form div {
     margin: 2rem 0;
 } */
+
+/*
+    ERROR MESSAGE
+*/
+.add-post .error {
+    padding: 1rem 0;
+    color: brown;
+}
+
+.add-post .error ul {
+    list-style: none;
+    padding-left: 10px;
+    font-weight: 500;
+}

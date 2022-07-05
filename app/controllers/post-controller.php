@@ -5,7 +5,7 @@ if (!$_SESSION) {
     header('location: ' . BASE_URL . 'auth.php');
 }
 
-$statusMessage = "";
+$statusMessage = [];
 $id = '';
 $title = '';
 $content = '';
@@ -19,6 +19,7 @@ $posts = selectAllFromPostsWithUsers('posts', 'users');
 function prettyPrint($value)
 {
     echo '<pre>';
+    //var_dump($value);
     print_r($value);
     echo '<pre>';
     exit();
@@ -33,17 +34,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post-create'])) {
         $destination = ROOT_PATH . "\assets\images\posts\\" . $imgName;
 
         if (strpos($fileType, 'image') === false) {
-            die("Можно загружать только изображения.");
+            array_push($statusMessage, "Загружаемый файл не является изображением.");
         } else {
             $result = move_uploaded_file($tmpFileName, $destination);
             if ($result) {
                 $_POST['picture'] = $imgName;
             } else {
-                $statusMessage = "Ошибка загрузки изображения на сервер.";
+                array_push($statusMessage, "Ошибка загрузки изображения на сервер.");
             }
         }
     } else {
-        $statusMessage = "Ошибка получения изображения.";
+        array_push($statusMessage, "Ошибка получения изображения.");
     }
 
     $title = trim($_POST['title']);
@@ -52,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post-create'])) {
     $publish = isset($_POST['publish']) ? 1 : 0;
 
     if ($title === "" || $content === "" || $topic_id === "") {
-        $statusMessage = "Не все поля заполнены.";
+        array_push($statusMessage, "Не все поля заполнены.");
     } elseif (mb_strlen($title, 'UTF8') < 7) {
-        $statusMessage = "Заголовок поста должен быть более 7-ми символов.";
-    } else {
+        array_push($statusMessage, "Заголовок поста должен быть более 7-ми символов.");
+    } elseif(empty($statusMessage)) {
         $post = [
             'id_user' => $_SESSION['id'],
             'title' => $title,

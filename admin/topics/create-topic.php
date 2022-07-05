@@ -48,7 +48,8 @@ include "../../app/controllers/topic-controller.php";
                 </div>
                 <div class="row add-post">
                     <div class="mb-12 col-12 col-md-12 error">
-                        <p><?= $statusMessage ?></p>
+                        <!-- Вывод массива ошибок -->
+                        <?php include "../../app/helps/error-info.php"; ?>
                     </div>
                     <form action="create-topic.php" method="post">
                         <div class="col">

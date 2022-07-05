@@ -47,14 +47,18 @@ include "../../app/controllers/post-controller.php";
                     <h2>Добавление записи</h2>
                 </div>
                 <div class="row add-post">
+                    <div class="mb-12 col-12 col-md-12 error">
+                        <!-- Вывод массива ошибок -->
+                        <?php include "../../app/helps/error-info.php"; ?>
+                    </div>
                     <form action="create-post.php" method="post" enctype="multipart/form-data">
                         <div class="col mb-4">
                             <label for="title" class="form-label">Название статьи</label>
-                            <input name="title" type="text" class="form-control" placeholder="Title" id="title">
+                            <input name="title" value="<?= $title; ?>" type="text" class="form-control" placeholder="Title" id="title">
                         </div>
                         <div class="col mb-4">
                             <label for="editor" class="form-label">Содержимое статьи</label>
-                            <textarea name="content" class="form-control" id="editor" rows="6"></textarea>
+                            <textarea name="content" class="form-control" id="editor" rows="6"><?= $content; ?></textarea>
                         </div>
                         <div class="input-group col mb-4">
                             <input name="picture" type="file" class="form-control" id="inputGroupFile02">

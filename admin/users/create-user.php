@@ -47,6 +47,10 @@ include "../../path.php";
                     <h2>Создание пользователя</h2>
                 </div>
                 <div class="row add-post">
+                    <div class="mb-12 col-12 col-md-12 error">
+                        <!-- Вывод массива ошибок -->
+                        <?php include "../../app/helps/error-info.php"; ?>
+                    </div>
                     <form action="create-post.php" method="post">
                         <div class="col">
                             <label for="formGroupExampleInput" class="form-label">Логин</label>

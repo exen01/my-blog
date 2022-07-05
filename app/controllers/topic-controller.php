@@ -2,7 +2,7 @@
 
 include SITE_ROOT . "/app/database/db.php";
 
-$statusMessage = "";
+$statusMessage = [];
 $id = '';
 $name = '';
 $description = '';
@@ -15,13 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-create'])) {
     $description = trim($_POST['description']);
 
     if ($name === "" || $description === "") {
-        $statusMessage = "Не все поля заполнены.";
+        array_push($statusMessage, "Не все поля заполнены.");
     } elseif (mb_strlen($name, 'UTF8') < 2) {
-        $statusMessage = "Название категории должно быть более 2-х символов.";
+        array_push($statusMessage, "Название категории должно быть более 2-х символов.");
     } else {
         $topicDataFromDb = select('topics', ['name' => $name], true);
         if (!empty($topicDataFromDb['name']) && $topicDataFromDb['name'] === $name) {
-            $statusMessage = "Категория с данным названием уже существует.";
+            array_push($statusMessage, "Категория с данным названием уже существует.");
         } else {
             $topic = [
                 'name' => $name,
@@ -50,9 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['topic-update'])) {
     $description = trim($_POST['description']);
 
     if ($name === "" || $description === "") {
-        $statusMessage = "Не все поля заполнены.";
+        array_push($statusMessage, "Не все поля заполнены.");
     } elseif (mb_strlen($name, 'UTF8') < 2) {
-        $statusMessage = "Название категории должно быть более 2-х символов.";
+        array_push($statusMessage, "Название категории должно быть более 2-х символов.");
     } else {
         $topic = [
             'name' => $name,
