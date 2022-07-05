@@ -1,6 +1,6 @@
 <?php
-session_start();
 include "../../path.php";
+include "../../app/controllers/post-controller.php";
 ?>
 
 <!doctype html>
@@ -47,27 +47,33 @@ include "../../path.php";
                     <h2>Добавление записи</h2>
                 </div>
                 <div class="row add-post">
-                    <form action="create-post.php" method="post">
+                    <form action="create-post.php" method="post" enctype="multipart/form-data">
                         <div class="col mb-4">
                             <label for="title" class="form-label">Название статьи</label>
-                            <input type="text" class="form-control" placeholder="Title" id="title">
+                            <input name="title" type="text" class="form-control" placeholder="Title" id="title">
                         </div>
                         <div class="col mb-4">
                             <label for="editor" class="form-label">Содержимое статьи</label>
-                            <textarea class="form-control" id="editor" rows="6"></textarea>
+                            <textarea name="content" class="form-control" id="editor" rows="6"></textarea>
                         </div>
                         <div class="input-group col mb-4">
-                            <input type="file" class="form-control" id="inputGroupFile02">
+                            <input name="picture" type="file" class="form-control" id="inputGroupFile02">
                             <label class="input-group-text" for="inputGroupFile02">Upload</label>
                         </div>
-                        <select class="form-select mb-4" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select name="topic_id" class="form-select mb-2">
+                            <option selected>Категория поста:</option>
+                            <?php foreach ($topics as $key => $topic) : ?>
+                                <option value="<?= $topic['id'] ?>"><?= $topic['name'] ?></option>
+                            <?php endforeach; ?>
                         </select>
-                        <div class="col  mb-4">
-                            <button class="btn btn-primary" type="submit">Сохранить пост</button>
+                        <div class="form-check mb-2">
+                            <input name="publish" value="1" class="form-check-input" type="checkbox" id="gridCheck" checked>
+                            <label class="form-check-label" for="gridCheck">
+                                Publish
+                            </label>
+                        </div>
+                        <div class="col col-6">
+                            <button name="post-create" class="btn btn-primary" type="submit">Добавить пост</button>
                         </div>
                     </form>
                 </div>

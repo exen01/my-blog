@@ -1,6 +1,6 @@
 <?php
-session_start();
 include "../../path.php";
+include "../../app/controllers/post-controller.php"
 ?>
 
 <!doctype html>
@@ -46,27 +46,44 @@ include "../../path.php";
                 <div class="row title-table">
                     <h2>Управление постами</h2>
                     <div class="id col-1">ID</div>
-                    <div class="title col-5">Название</div>
+                    <div class="title col-6">Название</div>
                     <div class="author col-2">Автор</div>
-                    <div class="edit col-4">Управление</div>
+                    <div class="edit col-3">Управление</div>
                 </div>
-                <div class="row post">
-                    <div class="col-1 id">1</div>
-                    <div class="col-5">Какая-то там статья</div>
-                    <div class="col-2">Админ</div>
-                    <div class="col-2 edit">
-                        <a href="">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            Edit
-                        </a>
+                <?php foreach ($posts as $key => $post) : ?>
+                    <div class="row post">
+                        <div class="col-1 id"><?= $post['id']; ?></div>
+                        <div class="col-6"><?= $post['title']; ?></div>
+                        <div class="col-2"><?= $post['username']; ?></div>
+                        <div class="col-1 edit">
+                            <a href="">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                Edit
+                            </a>
+                        </div>
+                        <div class="col-1 delete">
+                            <a href="">
+                                <i class="fa-solid fa-trash-can"></i>
+                                Delete
+                            </a>
+                        </div>
+                        <?php if ($post['status']) : ?>
+                            <div class="col-1 status">
+                                <a href="">
+                                    <i class="fa-solid fa-text-slash"></i>
+                                    Unpublish
+                                </a>
+                            </div>
+                        <?php else : ?>
+                            <div class="col-1 status">
+                                <a href="">
+                                    <i class="fa-solid fa-book"></i>
+                                    Publish
+                                </a>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                    <div class="col-2 delete">
-                        <a href="">
-                            <i class="fa-solid fa-trash-can"></i>
-                            Delete
-                        </a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

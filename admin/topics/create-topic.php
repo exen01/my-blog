@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "../../path.php";
 include "../../app/controllers/topic-controller.php";
 ?>
