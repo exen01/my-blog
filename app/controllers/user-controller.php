@@ -1,7 +1,7 @@
 <?php
 include SITE_ROOT . "/app/database/db.php";
 
-$statusMessage = "";
+$statusMessage = [];
 
 function userAuth($userData)
 {
@@ -25,15 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])) {
     $passwordS = trim($_POST['passwordSecond']);
 
     if ($login === "" || $email === "" || $passwordF === "") {
-        $statusMessage = "Не все поля заполнены.";
+        array_push($statusMessage, "Не все поля заполнены.");
     } elseif (mb_strlen($login, 'UTF8') < 2) {
-        $statusMessage = "Логин должен быть более 2-х символов.";
+        array_push($statusMessage, "Логин должен быть более 2-х символов.");
     } elseif ($passwordF !== $passwordS) {
-        $statusMessage = "Проверьте подтверждение пароля.";
+        array_push($statusMessage, "Проверьте подтверждение пароля.");
     } else {
         $userDataFromDb = select('users', ['email' => $email], true);
         if (!empty($userDataFromDb['email']) && $userDataFromDb['email'] === $email) {
-            $statusMessage = "Пользователь с данным адресом элекронной почты уже зарегестрирован.";
+            array_push($statusMessage, "Пользователь с данным адресом элекронной почты уже зарегестрирован.");
         } else {
             $pass = password_hash($passwordF, PASSWORD_DEFAULT);
             $user = [
@@ -57,13 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
     $password = trim($_POST['password']);
 
     if ($email === "" || $password === "") {
-        $statusMessage = "Не все поля заполнены.";
+        array_push($statusMessage, "Не все поля заполнены.");
     } else {
         $userDataFromDb = select('users', ['email' => $email], true);
         if ($userDataFromDb && password_verify($password, $userDataFromDb['password'])) {
             userAuth($userDataFromDb);
         } else {
-            $statusMessage = "Неверная почта или пароль.";
+            array_push($statusMessage, "Неверная почта или пароль.");
         }
     }
 } else {

@@ -1,6 +1,6 @@
 <?php
-session_start();
 include "../../path.php";
+include "../../app/controllers/user-controller.php";
 ?>
 
 <!doctype html>
@@ -52,23 +52,23 @@ include "../../path.php";
                         <?php include "../../app/helps/error-info.php"; ?>
                     </div>
                     <form action="create-post.php" method="post">
-                        <div class="col">
+                        <div class="col mb-2">
                             <label for="formGroupExampleInput" class="form-label">Логин</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="введите ваш логин..." name="login">
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Введите логин..." name="login">
                         </div>
-                        <div class="col">
+                        <div class="col mb-2">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="введите ваш email..." name="email">
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите email..." name="email">
                         </div>
-                        <div class="col">
+                        <div class="col mb-2">
                             <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="введите ваш пароль..." name="passwordFirst">
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите пароль..." name="passwordFirst">
                         </div>
-                        <div class="col-12">
+                        <div class="col mb-2">
                             <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="повторите ваш пароль..." name="passwordSecond">
+                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Повторите пароль..." name="passwordSecond">
                         </div>
-                        <div>
+                        <div class="col mb-2">
                             <label for="role" class="form-label">Права пользователя</label>
                             <select class="form-select" aria-label="Default select example" id="role">
                                 <option value="0">User</option>

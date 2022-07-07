@@ -56,27 +56,27 @@ include "../../app/controllers/post-controller.php"
                         <div class="col-6"><?= $post['title']; ?></div>
                         <div class="col-2"><?= $post['username']; ?></div>
                         <div class="col-1 edit">
-                            <a href="">
+                            <a href="edit-post.php?id=<?= $post['id']; ?>">
                                 <i class="fa-solid fa-pen-to-square"></i>
                                 Edit
                             </a>
                         </div>
                         <div class="col-1 delete">
-                            <a href="">
+                            <a href="index.php?delete_id=<?= $post['id']; ?>">
                                 <i class="fa-solid fa-trash-can"></i>
                                 Delete
                             </a>
                         </div>
                         <?php if ($post['status']) : ?>
                             <div class="col-1 status">
-                                <a href="">
+                                <a href="index.php?publish=0&pub_id=<?= $post['id']; ?>">
                                     <i class="fa-solid fa-text-slash"></i>
                                     Unpublish
                                 </a>
                             </div>
                         <?php else : ?>
                             <div class="col-1 status">
-                                <a href="">
+                                <a href="index.php?publish=1&pub_id=<?= $post['id']; ?>">
                                     <i class="fa-solid fa-book"></i>
                                     Publish
                                 </a>

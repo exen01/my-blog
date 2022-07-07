@@ -61,7 +61,7 @@ include "../../app/controllers/topic-controller.php";
                         </a>
                     </div>
                     <div class="col-2 delete">
-                        <a href="edit-topic.php?delete_id=<?= $topic['id']; ?>">
+                        <a href="index.php?delete_id=<?= $topic['id']; ?>">
                             <i class="fa-solid fa-trash-can"></i>
                             Delete
                         </a>
