@@ -1,4 +1,9 @@
-<?php include("path.php"); ?>
+<?php 
+include("path.php");
+include SITE_ROOT . "/app/database/db.php";
+
+$post = select('posts', ['id' => $_GET['post']], true);
+?>
 
 <!doctype html>
 <html lang="en">

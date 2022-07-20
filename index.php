@@ -1,6 +1,7 @@
 <?php
 include "path.php";
 include "app/controllers/topic-controller.php";
+$posts = selectPublishFromPostsWithUsers('posts', 'users');
 ?>
 
 <!doctype html>
@@ -74,96 +75,23 @@ include "app/controllers/topic-controller.php";
             <!-- Main Content -->
             <div class="main-content col-md-9 col-12">
                 <h2>Последние публикации</h2>
-                <div class="post row">
-                    <div class="img col-12 col-md-4">
-                        <img src="assets/images/image_4.jpg" alt="" class="img-thumbnail" />
+                <?php foreach ($posts as $post) : ?>
+                    <div class="post row">
+                        <div class="img col-12 col-md-4">
+                            <img src="<?= BASE_URL . 'assets/images/posts/' . $post['picture'] ?>" alt="<?= $post['title'] ?>" class="img-thumbnail" />
+                        </div>
+                        <div class="post-text col-12 col-md-8">
+                            <h3>
+                                <a href="<?= BASE_URL . 'single.php?post=' . $post['id'] ?>"><?= mb_substr($post['content'], 0, 120, 'UTF-8') . '...' ?></a>
+                            </h3>
+                            <i class="far fa-user"> <?= $post['username'] ?></i>
+                            <i class="far fa-calendar"> <?= $post['created_date'] ?></i>
+                            <p class="preview-text">
+                                <?= mb_substr($post['content'], 0, 150, 'UTF-8') . '...' ?>
+                            </p>
+                        </div>
                     </div>
-                    <div class="post-text col-12 col-md-8">
-                        <h3>
-                            <a href="#">Прикольная статья на тему динамического сайта...</a>
-                        </h3>
-                        <i class="far fa-user">Имя автора</i>
-                        <i class="far fa-calendar">Jun 23, 2022</i>
-                        <p class="preview-text">
-                            Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение
-                            нашей деятельности позволяет оценить значение соответствующий условий активизации. Равным
-                            образом постоянный количественный рост и сфера нашей активности позволяет выполнять важные
-                            задания по разработке модели развития.
-                        </p>
-                    </div>
-                </div>
-                <div class="post row">
-                    <div class="img col-12 col-md-4">
-                        <img src="assets/images/image_4.jpg" alt="" class="img-thumbnail" />
-                    </div>
-                    <div class="post-text col-12 col-md-8">
-                        <h3>
-                            <a href="#">Прикольная статья на тему динамического сайта...</a>
-                        </h3>
-                        <i class="far fa-user">Имя автора</i>
-                        <i class="far fa-calendar">Jun 23, 2022</i>
-                        <p class="preview-text">
-                            Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение
-                            нашей деятельности позволяет оценить значение соответствующий условий активизации. Равным
-                            образом постоянный количественный рост и сфера нашей активности позволяет выполнять важные
-                            задания по разработке модели развития.
-                        </p>
-                    </div>
-                </div>
-                <div class="post row">
-                    <div class="img col-12 col-md-4">
-                        <img src="assets/images/image_4.jpg" alt="" class="img-thumbnail" />
-                    </div>
-                    <div class="post-text col-12 col-md-8">
-                        <h3>
-                            <a href="#">Прикольная статья на тему динамического сайта...</a>
-                        </h3>
-                        <i class="far fa-user">Имя автора</i>
-                        <i class="far fa-calendar">Jun 23, 2022</i>
-                        <p class="preview-text">
-                            Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение
-                            нашей деятельности позволяет оценить значение соответствующий условий активизации. Равным
-                            образом постоянный количественный рост и сфера нашей активности позволяет выполнять важные
-                            задания по разработке модели развития.
-                        </p>
-                    </div>
-                </div>
-                <div class="post row">
-                    <div class="img col-12 col-md-4">
-                        <img src="assets/images/image_4.jpg" alt="" class="img-thumbnail" />
-                    </div>
-                    <div class="post-text col-12 col-md-8">
-                        <h3>
-                            <a href="#">Прикольная статья на тему динамического сайта...</a>
-                        </h3>
-                        <i class="far fa-user">Имя автора</i>
-                        <i class="far fa-calendar">Jun 23, 2022</i>
-                        <p class="preview-text">
-                            Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение
-                            нашей деятельности позволяет оценить значение соответствующий условий активизации. Равным
-                            образом постоянный количественный рост и сфера нашей активности позволяет выполнять важные
-                            задания по разработке модели развития.
-                        </p>
-                    </div>
-                </div>
-                <div class="post row">
-                    <div class="img col-12 col-md-4">
-                        <img src="assets/images/image_4.jpg" alt="" class="img-thumbnail" />
-                    </div>
-                    <div class="post-text col-12 col-md-8">
-                        <h3>
-                            <a href="#">Прикольная статья на тему динамического сайта...</a>
-                        </h3>
-                        <i class="far fa-user">Имя автора</i>
-                        <i class="far fa-calendar">Jun 23, 2022</i>
-                        <p class="preview-text">
-                            Задача организации, в особенности же постоянное информационно-пропагандистское обеспечение
-                            нашей деятельности позволяет оценить значение соответствующий условий активизации. Равным
-                            образом постоянный количественный рост и сфера нашей активности позволяет выполнять важные
-                            задания по разработке модели развития.
-                        </p>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
             <!-- Sidebar Content -->
             <div class="sidebar col-md-3 col-12">
@@ -176,8 +104,8 @@ include "app/controllers/topic-controller.php";
                 <div class="section topics">
                     <h3>Категории</h3>
                     <ul>
-                        <?php foreach($topics as $key => $topic): ?>
-                        <li><a href="#"><?= $topic['name']; ?></a></li>
+                        <?php foreach ($topics as $key => $topic) : ?>
+                            <li><a href="#"><?= $topic['name']; ?></a></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

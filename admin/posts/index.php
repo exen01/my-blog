@@ -53,7 +53,7 @@ include "../../app/controllers/post-controller.php"
                 <?php foreach ($posts as $key => $post) : ?>
                     <div class="row post">
                         <div class="col-1 id"><?= $post['id']; ?></div>
-                        <div class="col-6"><?= $post['title']; ?></div>
+                        <div class="col-6"><?= mb_substr($post['title'], 0, 40, 'UTF-8') . '...' ?></div>
                         <div class="col-2"><?= $post['username']; ?></div>
                         <div class="col-1 edit">
                             <a href="edit-post.php?id=<?= $post['id']; ?>">
