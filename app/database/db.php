@@ -128,12 +128,25 @@ function selectAllFromPostsWithUsers(string $table1, string $table2)
     return $query->fetchAll();
 }
 
-// posts with author for admin panel
+// published posts with author for main page
 function selectPublishFromPostsWithUsers(string $table1, string $table2)
 {
     global $pdo;
 
     $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status = 1";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
+
+// published posts with author for main page
+function selectTopFromPosts(string $table)
+{
+    global $pdo;
+
+    $sql = "SELECT * FROM $table WHERE id_topic = 7";
 
     $query = $pdo->prepare($sql);
     $query->execute();
