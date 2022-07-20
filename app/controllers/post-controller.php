@@ -16,15 +16,6 @@ $topics = select('topics');
 //$posts = select('posts');
 $posts = selectAllFromPostsWithUsers('posts', 'users');
 
-function prettyPrint($value)
-{
-    echo '<pre>';
-    //var_dump($value);
-    print_r($value);
-    echo '<pre>';
-    exit();
-}
-
 // post create
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post-create'])) {
     if (!empty($_FILES['picture']['name'])) {

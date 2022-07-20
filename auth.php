@@ -33,8 +33,9 @@ include "app/controllers/user-controller.php"
     <div class="container reg-form">
         <form class="row justify-content-center" method="post" action="auth.php">
             <h2 class="col-12">Авторизация</h2>
-            <div class="mb-3 col-12 col-md-4 error">
-                <p><?= $statusMessage ?></p>
+            <div class="mb-12 col-12 col-md-12 error">
+                <!-- Вывод массива ошибок -->
+                <?php include "app/helps/error-info.php"; ?>
             </div>
             <div class="w-100"></div>
             <div class="mb-3 col-12 col-md-4">

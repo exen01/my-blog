@@ -3,22 +3,37 @@ include SITE_ROOT . "/app/database/db.php";
 
 $statusMessage = [];
 
-function userAuth($userData)
-{
-    $_SESSION['id'] = $userData['id'];
-    $_SESSION['login'] = $userData['username'];
-    $_SESSION['isAdmin'] = $userData['is_admin'];
+$users = select('users');
 
-    if ($_SESSION['isAdmin']) {
-        header('location: ' . BASE_URL . "admin/posts/index.php");
+function userAuth($userData, bool $isAdminPanel = false)
+{
+    if ($isAdminPanel) {
+        header('location: ' . BASE_URL . "admin/users/index.php");
     } else {
-        header('location: ' . BASE_URL);
+        $_SESSION['id'] = $userData['id'];
+        $_SESSION['login'] = $userData['username'];
+        $_SESSION['isAdmin'] = $userData['is_admin'];
+
+        if ($_SESSION['isAdmin']) {
+            header('location: ' . BASE_URL . "admin/posts/index.php");
+        } else {
+            header('location: ' . BASE_URL);
+        }
     }
 }
 
-// registration
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])) {
-    $isAdmin = 0;
+function userAdd(string $from)
+{
+    $statusMessage = [];
+    $isAdminPanel = $from === 'create';
+    $isUpdate = $from === 'update';
+
+    if ($isAdminPanel || $isUpdate) {
+        $isAdmin = isset($_POST['admin']) ? 1 : 0;
+    } else {
+        $isAdmin = 0;
+    }
+
     $login = trim($_POST['login']);
     $email = trim($_POST['email']);
     $passwordF = trim($_POST['passwordFirst']);
@@ -30,21 +45,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-reg'])) {
         array_push($statusMessage, "Логин должен быть более 2-х символов.");
     } elseif ($passwordF !== $passwordS) {
         array_push($statusMessage, "Проверьте подтверждение пароля.");
-    } else {
+    } elseif (!$isUpdate) {
         $userDataFromDb = select('users', ['email' => $email], true);
         if (!empty($userDataFromDb['email']) && $userDataFromDb['email'] === $email) {
             array_push($statusMessage, "Пользователь с данным адресом элекронной почты уже зарегестрирован.");
-        } else {
-            $pass = password_hash($passwordF, PASSWORD_DEFAULT);
-            $user = [
-                'is_admin' => $isAdmin,
-                'username' => $login,
-                'email' => $email,
-                'password' => $pass
-            ];
-            $id = insert('users', $user);
-            userAuth($user);
         }
+    }
+
+    if (empty($statusMessage)) {
+        $pass = password_hash($passwordF, PASSWORD_DEFAULT);
+        $user = [
+            'is_admin' => $isAdmin,
+            'username' => $login,
+            'email' => $email,
+            'password' => $pass
+        ];
+
+        if ($isUpdate) {
+            update('users', $_POST['id'], $user);
+            header('location: ' . BASE_URL . "admin/users/index.php");
+        } else {
+            $id = insert('users', $user);
+            userAuth($user, $isAdminPanel);
+        }
+    }
+
+    return $statusMessage;
+}
+
+// add user
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_POST['button-reg'])) {
+        $statusMessage = userAdd('reg');
+    } elseif (isset($_POST['create-user'])) {
+        $statusMessage = userAdd('create');
+    } elseif (isset($_POST['update-user'])) {
+        $statusMessage = userAdd('update');
     }
 } else {
     $login = '';
@@ -68,4 +105,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['button-auth'])) {
     }
 } else {
     $email = '';
+}
+
+// user delete
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    delete('users', $id);
+    header('location: ' . BASE_URL . "admin/users/index.php");
+}
+
+// user update
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['edit_id'])) {
+    $user = select('users', ['id' => $_GET['edit_id']], true);
+
+    $id = $user['id'];
+    $login = $user['username'];
+    $email = $user['email'];
+    $isAdmin = $user['is_admin'];
 }

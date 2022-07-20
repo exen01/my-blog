@@ -51,14 +51,14 @@ include "../../app/controllers/user-controller.php";
                         <!-- Вывод массива ошибок -->
                         <?php include "../../app/helps/error-info.php"; ?>
                     </div>
-                    <form action="create-post.php" method="post">
+                    <form action="create-user.php" method="post">
                         <div class="col mb-2">
                             <label for="formGroupExampleInput" class="form-label">Логин</label>
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Введите логин..." name="login">
+                            <input type="text" value="<?= $login; ?>" class="form-control" id="formGroupExampleInput" placeholder="Введите логин..." name="login">
                         </div>
                         <div class="col mb-2">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите email..." name="email">
+                            <input type="email" value="<?= $email; ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите email..." name="email">
                         </div>
                         <div class="col mb-2">
                             <label for="exampleInputPassword1" class="form-label">Пароль</label>
@@ -68,15 +68,14 @@ include "../../app/controllers/user-controller.php";
                             <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
                             <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Повторите пароль..." name="passwordSecond">
                         </div>
-                        <div class="col mb-2">
-                            <label for="role" class="form-label">Права пользователя</label>
-                            <select class="form-select" aria-label="Default select example" id="role">
-                                <option value="0">User</option>
-                                <option value="1">Admin</option>
-                            </select>
+                        <div class="form-check mb-2">
+                            <input name="admin" value="1" class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                                Admin?
+                            </label>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary" type="submit">Создать</button>
+                            <button name="create-user" class="btn btn-primary" type="submit">Создать</button>
                         </div>
                     </form>
                 </div>

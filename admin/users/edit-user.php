@@ -1,7 +1,6 @@
 <?php
-session_start();
 include "../../path.php";
-include "../../app/controllers/topic-controller.php";
+include "../../app/controllers/user-controller.php";
 ?>
 
 <!doctype html>
@@ -35,35 +34,40 @@ include "../../app/controllers/topic-controller.php";
         <div class="row">
             <?php include "../../app/include/admin-sidebar.php"; ?>
             <div class="posts col-9">
-                <div class="button row">
-                    <a href="<?php echo BASE_URL . "admin/topics/create-topic.php"; ?>" class="col-2 btn btn-success">
-                        Создать
-                    </a>
-                    <span class="col-1"></span>
-                    <a href="<?php echo BASE_URL . "admin/topics/index.php"; ?>" class="col-3 btn btn-warning">
-                        Редактировать
-                    </a>
-                </div>
                 <div class="row title-table">
-                    <h2>Обновление категории</h2>
+                    <h2>Редактирование пользователя</h2>
                 </div>
                 <div class="row add-post">
                     <div class="mb-12 col-12 col-md-12 error">
                         <!-- Вывод массива ошибок -->
                         <?php include "../../app/helps/error-info.php"; ?>
                     </div>
-                    <form action="edit-topic.php" method="post">
+                    <form action="edit-user.php" method="post">
                         <input name="id" type="hidden" value="<?= $id; ?>">
-                        <div class="col">
-                            <label for="title" class="form-label">Название категории</label>
-                            <input name="name" type="text" value="<?= $name ?>" class="form-control" placeholder="Название..." id="title">
+                        <div class="col mb-2">
+                            <label for="formGroupExampleInput" class="form-label">Логин</label>
+                            <input type="text" value="<?= $login ?>" class="form-control" id="formGroupExampleInput" placeholder="Введите логин..." name="login">
+                        </div>
+                        <div class="col mb-2">
+                            <label for="exampleInputEmail1" class="form-label">Email</label>
+                            <input type="email" value="<?= $email ?>" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите email..." name="email">
+                        </div>
+                        <div class="col mb-2">
+                            <label for="exampleInputPassword1" class="form-label">Новый пароль</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Введите пароль..." name="passwordFirst">
+                        </div>
+                        <div class="col mb-2">
+                            <label for="exampleInputPassword2" class="form-label">Повторите пароль</label>
+                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Повторите пароль..." name="passwordSecond">
+                        </div>
+                        <div class="form-check mb-2">
+                            <input name="admin" value="1" class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                                Admin?
+                            </label>
                         </div>
                         <div class="col">
-                            <label for="content" class="form-label">Описание категории</label>
-                            <textarea name="description" class="form-control" id="content" rows="6"><?= $description ?></textarea>
-                        </div>
-                        <div class="col">
-                            <button name="topic-update" class="btn btn-primary" type="submit">Обновить категорию</button>
+                            <button name="update-user" class="btn btn-primary" type="submit">Обновить</button>
                         </div>
                     </form>
                 </div>

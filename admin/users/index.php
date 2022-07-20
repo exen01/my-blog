@@ -1,6 +1,6 @@
 <?php
-session_start();
 include "../../path.php";
+include "../../app/controllers/user-controller.php"
 ?>
 
 <!doctype html>
@@ -44,29 +44,33 @@ include "../../path.php";
                     </a>
                 </div>
                 <div class="row title-table">
-                    <h2>Управление пользователями</h2>
+                    <h2>Пользователи</h2>
                     <div class="col-1">ID</div>
-                    <div class="col-5">Логин</div>
+                    <div class="col-2">Логин</div>
+                    <div class="col-3">Email</div>
                     <div class="col-2">Роль</div>
                     <div class="col-4">Управление</div>
                 </div>
-                <div class="row post">
-                    <div class="col-1 id">1</div>
-                    <div class="col-5">какой-то пользователь</div>
-                    <div class="col-2">admin</div>
-                    <div class="col-2 edit">
-                        <a href="">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            Edit
-                        </a>
+                <?php foreach ($users as $key => $user) : ?>
+                    <div class="row post">
+                        <div class="col-1 id"><?= $user['id']; ?></div>
+                        <div class="col-2"><?= $user['username']; ?></div>
+                        <div class="col-3"><?= $user['email']; ?></div>
+                        <div class="col-2"><?= $user['is_admin'] ? "Admin" : "User"; ?></div>
+                        <div class="col-2 edit">
+                            <a href="edit-user.php?edit_id=<?= $user['id']; ?>">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                Edit
+                            </a>
+                        </div>
+                        <div class="col-2 delete">
+                            <a href="index.php?delete_id=<?= $user['id']; ?>">
+                                <i class="fa-solid fa-trash-can"></i>
+                                Delete
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-2 delete">
-                        <a href="">
-                            <i class="fa-solid fa-trash-can"></i>
-                            Delete
-                        </a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
