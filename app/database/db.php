@@ -153,3 +153,21 @@ function selectTopFromPosts(string $table)
     dbCheckError($query);
     return $query->fetchAll();
 }
+
+// title and content search
+function searchInTitleAndContent(string $term, string $table1, string $table2)
+{
+    global $pdo;
+
+    $text = trim(strip_tags(stripcslashes(htmlspecialchars($term))));
+
+    $sql = "SELECT p.*, u.username 
+        FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id 
+        WHERE p.status = 1
+        AND p.title LIKE '%$text%' OR p.content LIKE '%$text%'";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchAll();
+}
