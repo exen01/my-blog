@@ -102,7 +102,7 @@ $topPosts = selectTopFromPosts('posts');
                         <h3>Категории</h3>
                         <ul>
                             <?php foreach ($topics as $key => $topic) : ?>
-                                <li><a href="#"><?= $topic['name']; ?></a></li>
+                                <li><a href="<?= BASE_URL . 'category.php?id=' . $topic['id']; ?>"><?= $topic['name']; ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>

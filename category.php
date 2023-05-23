@@ -1,11 +1,11 @@
 <?php
-include("path.php");
+include "path.php";
 include "app/controllers/topic-controller.php";
-
-$post = selectPostWithUser('posts', 'users', $_GET['post']);
+$posts = select('posts', ['id_topic' => $_GET['id']]);
+$category = select('topics', ['id' => $_GET['id']], true);
 ?>
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -29,6 +29,7 @@ $post = selectPostWithUser('posts', 'users', $_GET['post']);
 </head>
 
 <body>
+
     <?php include("app/include/header.php"); ?>
 
     <!-- Main block start -->
@@ -36,27 +37,30 @@ $post = selectPostWithUser('posts', 'users', $_GET['post']);
         <div class="content row">
             <!-- Main Content -->
             <div class="main-content col-md-9 col-12">
-                <h2>
-                    <?php echo $post['title']; ?>
-                </h2>
-                <div class="single-post row">
-                    <div class="img col-12">
-                        <img src="<?= BASE_URL . 'assets/images/posts/' . $post['picture'] ?>" alt="<?= $post['title'] ?>" class="img-thumbnail" />
+                <h2>Статьи с раздела <strong><?= $category['name']; ?></strong></h2>
+                <?php foreach ($posts as $post) : ?>
+                    <div class="post row">
+                        <div class="img col-12 col-md-4">
+                            <img src="<?= BASE_URL . 'assets/images/posts/' . $post['picture'] ?>" alt="<?= $post['title'] ?>" class="img-thumbnail" />
+                        </div>
+                        <div class="post-text col-12 col-md-8">
+                            <h3>
+                                <a href="<?= BASE_URL . 'single.php?post=' . $post['id'] ?>"><?= mb_substr($post['title'], 0, 80, 'UTF-8') . '...' ?></a>
+                            </h3>
+                            <i class="far fa-user"> <?= $post['username'] ?></i>
+                            <i class="far fa-calendar"> <?= $post['created_date'] ?></i>
+                            <p class="preview-text">
+                                <?= mb_substr($post['content'], 0, 55, 'UTF-8') . '...' ?>
+                            </p>
+                        </div>
                     </div>
-                    <div class="info">
-                        <i class="far fa-user"><?= $post['username']; ?></i>
-                        <i class="far fa-calendar"><?= $post['created_date']; ?></i>
-                    </div>
-                    <div class="single-post-text col-12">
-                        <?= $post['content']; ?>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
             <!-- Sidebar Content -->
             <div class="sidebar col-md-3 col-12">
                 <div class="section search">
                     <h3>Поиск</h3>
-                    <form action="/" method="post">
+                    <form action="/search.php" method="post">
                         <input type="text" name="search-term" class="text-input" placeholder="Введите искомое слово..." />
                     </form>
                 </div>
