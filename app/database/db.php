@@ -171,3 +171,16 @@ function searchInTitleAndContent(string $term, string $table1, string $table2)
     dbCheckError($query);
     return $query->fetchAll();
 }
+
+// post with author for single page
+function selectPostWithUser(string $table1, string $table2, int $id)
+{
+    global $pdo;
+
+    $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.id = $id";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetch();
+}
