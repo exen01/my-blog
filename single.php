@@ -50,6 +50,8 @@ $post = selectPostWithUser('posts', 'users', $_GET['post']);
                     <div class="single-post-text col-12">
                         <?= $post['content']; ?>
                     </div>
+                    <!-- Comments block -->
+                    <?php include("app/include/comment.php") ?>
                 </div>
             </div>
             <!-- Sidebar Content -->
