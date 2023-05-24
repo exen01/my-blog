@@ -1,8 +1,15 @@
 <?php
 include "path.php";
 include "app/controllers/topic-controller.php";
-$posts = selectPublishFromPostsWithUsers('posts', 'users');
+
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$limit = 2;
+$offset = $limit * ($page - 1);
+$totalPages = round(countRow('posts') / $limit, 0);
+
+$posts = selectPublishFromPostsWithUsers('posts', 'users', $limit, $offset);
 $topPosts = selectTopFromPosts('posts');
+
 ?>
 
 <!doctype html>
@@ -89,6 +96,8 @@ $topPosts = selectTopFromPosts('posts');
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <!-- Navigation -->
+                    <?php include("app/include/pagination.php"); ?>
                 </div>
                 <!-- Sidebar Content -->
                 <div class="sidebar col-md-3 col-12">

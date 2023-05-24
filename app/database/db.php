@@ -129,11 +129,13 @@ function selectAllFromPostsWithUsers(string $table1, string $table2)
 }
 
 // published posts with author for main page
-function selectPublishFromPostsWithUsers(string $table1, string $table2)
+function selectPublishFromPostsWithUsers(string $table1, string $table2, int $limit, int $offset)
 {
     global $pdo;
 
-    $sql = "SELECT p.*, u.username FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status = 1";
+    $sql = "SELECT p.*, u.username 
+        FROM $table1 AS p JOIN $table2 AS u ON p.id_user = u.id WHERE p.status = 1
+        LIMIT $limit OFFSET $offset";
 
     $query = $pdo->prepare($sql);
     $query->execute();
@@ -183,4 +185,17 @@ function selectPostWithUser(string $table1, string $table2, int $id)
     $query->execute();
     dbCheckError($query);
     return $query->fetch();
+}
+
+// post with author for single page
+function countRow(string $table)
+{
+    global $pdo;
+
+    $sql = "SELECT COUNT(*) FROM $table AS p WHERE p.status = 1";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();
+    dbCheckError($query);
+    return $query->fetchColumn();
 }
